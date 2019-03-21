@@ -7,7 +7,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-const getVisitors = () => {
+const getUsuarios = () => {
   let clients = io.sockets.clients().connected;
   let sockets = Object.values(clients);
   let users = sockets.map(socket => socket.user);
@@ -15,20 +15,21 @@ const getVisitors = () => {
   return users;
 };
 
-const emitVisitors = () => {
-  io.emit("visitors", getVisitors());
+const emitUsuarios = () => {
+  io.emit("usuarios", getUsuarios());
 };
 
 io.on("connection", socket => {
   console.log("se ha conectado un usuario");
 
-  socket.on("new_visitor", user => {
+  socket.on("new_usuario", user => {
     socket.user = user;
-    console.log("nuevo visitante: ", user);
-    emitVisitors();
+    console.log("nuevo usuario: ", user);
+    emitUsuarios();
   });
 
   socket.on("disconnect", () => {
+    emitUsuarios();
     console.log("se ha desconectado el usuario");
   });
 });
