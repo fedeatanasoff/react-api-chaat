@@ -19,6 +19,13 @@ const emitUsuarios = () => {
   io.emit("usuarios", getUsuarios());
 };
 
+let mensajes = [
+  {
+    cuerpo: "bienvenido al chat",
+    usuario: "desde backend"
+  }
+];
+
 io.on("connection", socket => {
   console.log("se ha conectado un usuario");
 
@@ -27,6 +34,14 @@ io.on("connection", socket => {
     console.log("nuevo usuario: ", user);
     emitUsuarios();
   });
+
+  socket.emit("messages", mensajes);
+
+  // socket.on("agregar-msg", data => {
+  //   mensajes.push(data);
+
+  //   io.sockets.emit("messages", mensajes);
+  // });
 
   socket.on("disconnect", () => {
     emitUsuarios();

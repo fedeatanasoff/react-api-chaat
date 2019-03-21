@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-// import logo from "./logo.svg";
-import Header from "./Components/Header/Header";
-import UsuariosTabla from "./Components/Usuarios/UsuariosTabla";
+import Layout from "./Components/Containers/Layout";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
-        <div className="container">
-          <h2>hello friend desde react</h2>
-          <UsuariosTabla />
-        </div>
-
-        <div className="container" />
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
       </React.Fragment>
     );
   }

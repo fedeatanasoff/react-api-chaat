@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 class Header extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <div className="navbar-brand">Navbar</div>
+          <NavLink className="navbar-brand" exact to="/">
+            Navbar
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,15 +23,28 @@ class Header extends Component {
 
           <div className="collapse navbar-collapse" id="navbarColor02">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="/">
-                  Home <span className="sr-only">(current)</span>
-                </a>
+              <li className="nav-item ">
+                <NavLink className="nav-link" to="/chat">
+                  Chat
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
-                  Features
-                </a>
+                <NavLink className="nav-link" to="/roomchat">
+                  Rooms
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  exact
+                  to="/"
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "red"
+                  }}
+                >
+                  Usuario
+                </NavLink>
               </li>
             </ul>
             {/* <form className="form-inline my-2 my-lg-0">
