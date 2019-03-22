@@ -20,7 +20,8 @@ class UsuariosTabla extends Component {
 
   componentDidMount() {
     socket.on("messages", data => {
-      let join = this.state.mensajes.concat(data[0]);
+      console.log("componenet did mount data", data);
+      let join = this.state.mensajes.concat(data);
 
       this.setState({ mensajes: join });
     });
@@ -31,10 +32,11 @@ class UsuariosTabla extends Component {
     let mensaje = this.inputMensajes.value;
     let obj = { cuerpo: mensaje, usuario: this.state.usuario.nombre_usuario };
 
-    console.log("mensaje entrante", mensaje);
-    this.setState({ mensajes: [...this.state.mensajes, obj] });
+    // console.log("mensaje entrante", mensaje);
+    // this.setState({ mensajes: [...this.state.mensajes, obj] });
 
     socket.emit("agregar-msg", obj);
+    this.inputMensajes.value = "";
   };
 
   componentWillMount() {
@@ -62,7 +64,6 @@ class UsuariosTabla extends Component {
         });
 
         socket.emit("new_usuario", usuario);
-
         socket.on("usuarios", usuarios => {
           this.setState({ usuarios: usuarios });
         });
@@ -70,44 +71,27 @@ class UsuariosTabla extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log("usuarios desde render ", this.state);
     const { usuarios } = this.state;
     return (
       <div>
         <div className="row">
-          <table className="table table-hover text-center">
-            <thead>
-              <tr>
-                <th scope="col">id</th>
-                <th scope="col">nombre</th>
-                <th scope="col">usuario</th>
-                <th scope="col">email</th>
-                <th scope="col">fecha de creacion</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuarios.map(usuario => (
-                <tr key={usuario.id}>
-                  <th scope="row">{usuario.id}</th>
-                  <td>{usuario.nombre}</td>
-                  <td>{usuario.nombre_usuario}</td>
-                  <td>{usuario.email}</td>
-                  <td>{usuario.creado_en}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {usuarios.map((usuario, index) => (
+            <h3 className="badge bagde-primary" key={index}>
+              {usuario.nombre}
+            </h3>
+          ))}
         </div>
         <div className="row mensajes">
-          {this.state.mensajes.map((mensaje, index) => (
-            <div key={index} className="mensaje">
-              <b className="badge badge-primary">
-                {mensaje.usuario === "" ? "" : mensaje.usuario}
-              </b>
-              &nbsp;
-              {mensaje.cuerpo}
-            </div>
-          ))}
+          <div />
+          <ul>
+            {this.state.mensajes.map((mensaje, index) => (
+              <li key={index} className="mensaje">
+                <span class="badge badge-primary">{mensaje.usuario}</span> -{" "}
+                {mensaje.cuerpo}
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="row">
           <div>

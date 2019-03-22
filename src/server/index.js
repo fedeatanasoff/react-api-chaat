@@ -37,11 +37,11 @@ io.on("connection", socket => {
 
   socket.emit("messages", mensajes);
 
-  // socket.on("agregar-msg", data => {
-  //   mensajes.push(data);
+  socket.on("agregar-msg", data => {
+    mensajes.push(data);
 
-  //   io.sockets.emit("messages", mensajes);
-  // });
+    io.sockets.emit("messages", data);
+  });
 
   socket.on("disconnect", () => {
     emitUsuarios();
