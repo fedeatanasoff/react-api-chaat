@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-// import logo from "./logo.svg";
 import Header from "../Header/Header";
-import UsuariosTabla from "../Usuarios/UsuariosTabla";
-// import EnterChat from "../EnterChat/EnterChat";
+import Chat from "../Usuarios/Chat";
 import { Route, Switch } from "react-router-dom";
 import "../../App.css";
 
@@ -13,7 +11,7 @@ class Layout extends Component {
         <Header />
         <div className="container">
           <Switch>
-            <Route path="/" exact component={UsuariosTabla} />
+            <Route path="/" exact component={Chat} />
             {/* <Route path="/enterchat" exact component={EnterChat} /> */}
           </Switch>
         </div>
